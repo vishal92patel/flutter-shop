@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../mock/items.dart' as itemsMock;
 import '../widgets/item.dart' as itemWidget;
 
 class Items extends StatelessWidget {
-  final items = new itemsMock.Items();
-
   @override
   Widget build(BuildContext context) {
+    final items = Provider.of<itemsMock.Items>(context, listen: false);
+//    return Consumer<itemsMock.Items>(
+//        builder: (ctx, items, child) =>
     return Container(
       child: ListView.separated(
         separatorBuilder: (ctx, i) => Divider(
@@ -16,10 +18,12 @@ class Items extends StatelessWidget {
         itemBuilder: (ctx, i) => Container(
             padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
             child: itemWidget.Item(
-                itemName: items.getItems()[i].name,
-                itemImg: items.getItems()[i].img,
-                itemCost: items.getItems()[i].cost)),
+                items.getItems()[i].id,
+                items.getItems()[i].name,
+                items.getItems()[i].img,
+                items.getItems()[i].cost)),
       ),
     );
+//    );
   }
 }

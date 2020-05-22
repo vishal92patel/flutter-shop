@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../model/items.dart';
 
 class Items with ChangeNotifier {
@@ -54,12 +53,11 @@ class Items with ChangeNotifier {
   }
 
   getCartItems() {
-    notifyListeners();
     return cartItems;
   }
 
   addItemInCart(item) {
     this.cartItems.add(item);
-    getItems();
+    notifyListeners();
   }
 }

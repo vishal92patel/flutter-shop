@@ -1,13 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../mock/items.dart' as itemsMock;
+import '../model/items.dart';
 
 class Item extends StatelessWidget {
   final String itemName;
   final String itemImg;
   final String itemCost;
-  Item({this.itemName, this.itemImg, this.itemCost});
+  final String itemId;
+  Item(this.itemId, this.itemName, this.itemImg, this.itemCost);
   @override
   Widget build(BuildContext context) {
+    print('hii');
     return GridTile(
       child: Container(
         child: Column(
@@ -47,12 +51,22 @@ class Item extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
-                                    RaisedButton.icon(
-                                        label: Text('Add to cart'),
-                                        onPressed: () => {},
-                                        color: Colors.blue,
-                                        textColor: Colors.white,
-                                        icon: Icon(Icons.add_shopping_cart)),
+                                    Consumer<itemsMock.Items>(
+                                      builder: (ctx, items, child) =>
+                                          RaisedButton.icon(
+                                              label: Text('Add to cart'),
+                                              onPressed: () {
+                                                items.addItemInCart(ItemsModel(
+                                                    id: this.itemId,
+                                                    name: this.itemName,
+                                                    img: this.itemImg,
+                                                    cost: this.itemCost));
+                                              },
+                                              color: Colors.blue,
+                                              textColor: Colors.white,
+                                              icon: child),
+                                      child: Icon(Icons.add_shopping_cart),
+                                    ),
                                     IconButton(
                                         onPressed: () => {},
                                         color: Colors.red,

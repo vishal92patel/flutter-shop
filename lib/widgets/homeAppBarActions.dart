@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../mock/items.dart' as itemsMock;
 
 class HomeAppBarActions extends StatelessWidget {
   @override
@@ -15,23 +17,24 @@ class HomeAppBarActions extends StatelessWidget {
               left: 26,
               bottom: 26,
               child: Container(
-                decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(1000)),
-                padding: EdgeInsets.fromLTRB(0, 2, 0, 0),
-                constraints: BoxConstraints(
-                  minWidth: 15,
-                  minHeight: 15,
-                ),
-                child: Text(
-                  '0',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                ),
-              ),
+                  decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(1000)),
+                  padding: EdgeInsets.fromLTRB(0, 2, 0, 0),
+                  constraints: BoxConstraints(
+                    minWidth: 15,
+                    minHeight: 15,
+                  ),
+                  child: Consumer<itemsMock.Items>(
+                    builder: (ctx, cartItems, child) => Text(
+                      '${cartItems.getCartItems().length}',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                  )),
             )
           ],
         ),
